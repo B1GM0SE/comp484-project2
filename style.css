@@ -72,6 +72,31 @@
     box-shadow: 0 6px 12px rgba(83, 63, 104, 0.2);
     background-color: #fff4c2;
   }
+
+  /* Applies the bounce animation to the pet image */
+  .pet-image.pet-action-animation {
+    animation: pet-bounce 0.6s ease;
+  }
+
+  /* Defines the bounce animation */
+  @keyframes pet-bounce {
+    /* The animation starts and ends with the pet image in its original position */
+    0%, 100% {
+      transform: translateY(0);
+    }
+    /* The pet image moves up and tilts slightly to the left */
+    25% {
+      transform: translateY(-14px) rotate(-3deg);
+    }
+    /* The pet image returns to its original position */
+    50% {
+      transform: translateY(0) rotate(0deg);
+    }
+    /* The pet image moves up and tilts slightly to the right */
+    75% {
+      transform: translateY(-14px) rotate(3deg);
+    }
+  }
   
   .dashboard div {
     display:block;

@@ -1,4 +1,6 @@
-$(function() { // Makes sure that your function is called once all the DOM elements of the page are ready to be used.
+$(function() { 
+  // Runs after the webpage finishes loading and displays the pet's starting information
+  //then connects each button to its corresponding function
     
     // Called function to update the name, happiness, and weight of our pet in our HTML
     checkAndUpdatePetInfoInHtml("Beethoven is ready for a fun day!");
@@ -20,32 +22,35 @@ $(function() { // Makes sure that your function is called once all the DOM eleme
     function clickedTreatButton() {
       pet_info.happiness += 5;// Increase pet happiness
       pet_info.weight += 2; // Increase pet weight
-      checkAndUpdatePetInfoInHtml("Beethoven is happy to have a treat!");
+      checkAndUpdatePetInfoInHtml("Beethoven is happy to have a treat!", true); //the true value tells it to animate Beethoven
     }
     
     function clickedPlayButton() {
       pet_info.happiness += 10; // Increase pet happiness
       pet_info.weight -= 2; // Decrease pet weight
-      checkAndUpdatePetInfoInHtml("Beethoven is having a great time playing!");
+      checkAndUpdatePetInfoInHtml("Beethoven is having a great time playing!", true);
     
     }
     
     function clickedExerciseButton() {
       pet_info.happiness -= 5; // Decrease pet happiness
       pet_info.weight -= 3; // Decrease pet weight
-      checkAndUpdatePetInfoInHtml("Beethoven is getting some exercise!");
+      checkAndUpdatePetInfoInHtml("Beethoven is getting some exercise!", true);
     }
-    function clickedTrainButton() {
+    function clickedTrainButton() { //the additional action that was added
       pet_info.happiness += 15; // Increase pet happiness
       pet_info.weight -= 3; // Decrease pet weight
-      checkAndUpdatePetInfoInHtml("Beethoven is learning new tricks!");
+      checkAndUpdatePetInfoInHtml("Beethoven is learning new tricks!", true);
     }
-    function checkAndUpdatePetInfoInHtml(message) {
+
+    //this function checks the values and then updates the webpage, and displays a webpage from Beethoven
+    function checkAndUpdatePetInfoInHtml(message, animatePet = false) {
       checkWeightAndHappinessBeforeUpdating();  
       updatePetInfoInHtml();
-      displayPetMessage(message);
+      displayPetMessage(message, animatePet);
     }
     
+    //prevents weight and happiness from going below zero
     function checkWeightAndHappinessBeforeUpdating() {
      if (pet_info.weight < 0) { // Add conditional so if weight is lower than zero.
         pet_info.weight = 0;
@@ -62,7 +67,17 @@ $(function() { // Makes sure that your function is called once all the DOM eleme
       $('.happiness').text(pet_info['happiness']);
     }
 
-    function displayPetMessage(message) {
+    //displays a message from Beethoven and animates the pet
+    function displayPetMessage(message, animatePet) {
+      if (animatePet) {
+        //removes the old animation
+        $('.pet-image').removeClass('pet-action-animation');
+        //forces the browser to restart the animation
+        void $('.pet-image')[0].offsetWidth;
+        //addClass() applies the bounce animation to the image
+        $('.pet-image').addClass('pet-action-animation');
+      }
+      //hides the previous message and fades in the new message
       $('.pet-message').hide().text(message).fadeIn(300);
-    }
+      }
   
